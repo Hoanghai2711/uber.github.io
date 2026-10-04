@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Website doanh nghiệp tối giản và cao cấp.">
+  <title>AURELIA — Doanh nghiệp</title>
+  <style>
+    :root{
+      --bg:#f7f6f2;
+      --surface:#fff;
+      --text:#171717;
+      --muted:#77746d;
+      --line:#dfddd6;
+      --accent:#a4875a;
+      --dark:#1b1b19;
+      --radius:22px;
+      --max:1180px;
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background:var(--bg);color:var(--text);line-height:1.6;
+      -webkit-font-smoothing:antialiased;
+    }
+    a{color:inherit;text-decoration:none}
+    .container{width:min(calc(100% - 40px),var(--max));margin:auto}
+    header{
+      position:fixed;top:0;left:0;right:0;z-index:20;
+      background:rgba(247,246,242,.82);backdrop-filter:blur(16px);
+      border-bottom:1px solid rgba(223,221,214,.7);
+    }
+    nav{height:76px;display:flex;align-items:center;justify-content:space-between}
+    .logo{font-size:20px;letter-spacing:.22em;font-weight:700}
+    .navlinks{display:flex;gap:34px;font-size:14px;color:#555}
+    .navlinks a{transition:.25s}
+    .navlinks a:hover{color:var(--text)}
+    .menu{display:none;background:none;border:0;font-size:25px}
+    .hero{min-height:100vh;display:grid;place-items:center;padding:130px 0 80px}
+    .hero-inner{max-width:920px;text-align:center}
+    .eyebrow{
+      display:inline-block;color:var(--accent);font-size:12px;
+      letter-spacing:.2em;text-transform:uppercase;margin-bottom:24px
+    }
+    h1{
+      font-family:Georgia,"Times New Roman",serif;
+      font-size:clamp(54px,8vw,104px);font-weight:400;line-height:.98;
+      letter-spacing:-.055em;margin-bottom:30px
+    }
+    .hero p{max-width:650px;margin:auto;color:var(--muted);font-size:18px}
+    .actions{display:flex;justify-content:center;gap:12px;margin-top:38px}
+    .btn{
+      display:inline-flex;align-items:center;justify-content:center;
+      min-height:50px;padding:0 25px;border-radius:999px;
+      border:1px solid var(--text);font-size:14px;transition:.25s
+    }
+    .btn.primary{background:var(--dark);color:white}
+    .btn:hover{transform:translateY(-2px)}
+    section{padding:110px 0}
+    .section-head{display:flex;justify-content:space-between;gap:40px;margin-bottom:55px}
+    .section-head h2{
+      font-family:Georgia,"Times New Roman",serif;font-size:clamp(36px,5vw,60px);
+      font-weight:400;line-height:1.05;letter-spacing:-.04em
+    }
+    .section-head p{max-width:400px;color:var(--muted);align-self:end}
+    .about-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:70px;align-items:center}
+    .about-card{
+      min-height:470px;border-radius:var(--radius);
+      background:var(--dark);color:white;padding:50px;
+      display:flex;flex-direction:column;justify-content:space-between
+    }
+    .about-card .number{font-size:12px;letter-spacing:.18em;color:#aaa}
+    .about-card strong{font-family:Georgia,serif;font-size:42px;font-weight:400;line-height:1.1}
+    .about-copy p{color:var(--muted);margin-bottom:25px}
+    .signature{font-family:cursive;font-size:25px;margin-top:35px}
+    .services{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--line)}
+    .service{padding:35px 25px 35px 0;border-bottom:1px solid var(--line)}
+    .service:not(:nth-child(3n+1)){padding-left:25px;border-left:1px solid var(--line)}
+    .service span{color:var(--accent);font-size:12px}
+    .service h3{font-size:21px;margin:22px 0 10px;font-weight:600}
+    .service p{color:var(--muted);font-size:14px}
+    .work-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
+    .work{
+      aspect-ratio:1.35;border-radius:var(--radius);overflow:hidden;
+      position:relative;background:#ddd
+    }
+    .work:nth-child(1){background:linear-gradient(135deg,#d9d2c6,#8b8173)}
+    .work:nth-child(2){background:linear-gradient(135deg,#d6d9d2,#747a70)}
+    .work:nth-child(3){background:linear-gradient(135deg,#cfc5bd,#76645a)}
+    .work:nth-child(4){background:linear-gradient(135deg,#d8d7d0,#89877e)}
+    .work .label{
+      position:absolute;left:25px;bottom:22px;color:white;
+      text-shadow:0 1px 8px #222;font-size:15px
+    }
+    .quote{background:var(--dark);color:white;text-align:center}
+    blockquote{
+      max-width:850px;margin:auto;font-family:Georgia,serif;
+      font-size:clamp(28px,4vw,48px);line-height:1.2;font-weight:400
+    }
+    .quote cite{display:block;color:#999;font:12px Inter,sans-serif;letter-spacing:.16em;text-transform:uppercase;margin-top:30px}
+    .contact{display:grid;grid-template-columns:1fr 1fr;gap:70px}
+    .contact h2{font-family:Georgia,serif;font-size:clamp(42px,5vw,65px);font-weight:400;line-height:1.05}
+    .contact-info{border-top:1px solid var(--line)}
+    .contact-row{padding:23px 0;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;gap:20px;font-size:14px}
+    .contact-row span:first-child{color:var(--muted)}
+    footer{border-top:1px solid var(--line);padding:28px 0;color:var(--muted);font-size:12px}
+    .footer-inner{display:flex;justify-content:space-between}
+    @media(max-width:760px){
+      .container{width:min(calc(100% - 28px),var(--max))}
+      nav{height:68px}
+      .navlinks{display:none}
+      .menu{display:block}
+      section{padding:80px 0}
+      .hero{padding-top:110px}
+      .hero p{font-size:16px}
+      .actions{flex-direction:column}
+      .about-grid,.contact{grid-template-columns:1fr;gap:35px}
+      .about-card{min-height:350px;padding:32px}
+      .services,.work-grid{grid-template-columns:1fr}
+      .service:not(:nth-child(3n+1)){padding-left:0;border-left:0}
+      .section-head{display:block;margin-bottom:35px}
+      .section-head p{margin-top:20px}
+      .footer-inner{display:block}
+      .footer-inner span{display:block;margin-top:8px}
+    }
+  </style>
+</head>
+<body>
+<header>
+  <div class="container">
+    <nav>
+      <a class="logo" href="#">AURELIA</a>
+      <div class="navlinks">
+        <a href="#about">Về chúng tôi</a>
+        <a href="#services">Dịch vụ</a>
+        <a href="#work">Dự án</a>
+        <a href="#contact">Liên hệ</a>
+      </div>
+      <button class="menu" aria-label="Mở menu">☰</button>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="container hero-inner">
+      <span class="eyebrow">Tinh tế · Bền vững · Khác biệt</span>
+      <h1>Kiến tạo giá trị<br>có chiều sâu.</h1>
+      <p>Chúng tôi xây dựng những thương hiệu và giải pháp có giá trị lâu dài — nơi chiến lược gặp gỡ thẩm mỹ và hiệu quả.</p>
+      <div class="actions">
+        <a class="btn primary" href="#contact">Bắt đầu hợp tác</a>
+        <a class="btn" href="#work">Xem dự án</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="about">
+    <div class="container">
+      <div class="section-head">
+        <h2>Không chỉ tạo ra<br>sản phẩm.</h2>
+        <p>Chúng tôi tạo ra những trải nghiệm đáng nhớ, được xây dựng từ tư duy rõ ràng và sự chăm chút đến từng chi tiết.</p>
+      </div>
+      <div class="about-grid">
+        <div class="about-card">
+          <span class="number">01 / PHILOSOPHY</span>
+          <strong>Ít hơn,<br>nhưng tốt hơn.</strong>
+          <span class="number">EST. 2026</span>
+        </div>
+        <div class="about-copy">
+          <p>AURELIA là một công ty độc lập tập trung vào chiến lược, thương hiệu và trải nghiệm số. Chúng tôi tin rằng sự tối giản không phải là cắt bỏ, mà là giữ lại những điều thực sự quan trọng.</p>
+          <p>Từ ý tưởng đầu tiên đến sản phẩm cuối cùng, mỗi quyết định đều hướng đến một mục tiêu: tạo ra giá trị rõ ràng, đẹp và bền vững.</p>
+          <div class="signature">Aurelia Studio</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="services">
+    <div class="container">
+      <div class="section-head">
+        <h2>Chúng tôi<br>làm gì?</h2>
+        <p>Một hệ sinh thái dịch vụ tinh gọn để biến những ý tưởng tốt thành những thương hiệu đáng nhớ.</p>
+      </div>
+      <div class="services">
+        <article class="service"><span>01</span><h3>Chiến lược</h3><p>Định vị thương hiệu, nghiên cứu thị trường và xây dựng hướng đi dài hạn.</p></article>
+        <article class="service"><span>02</span><h3>Nhận diện</h3><p>Hệ thống thương hiệu nhất quán, tinh tế và có khả năng phát triển.</p></article>
+        <article class="service"><span>03</span><h3>Digital</h3><p>Website và trải nghiệm số tối giản, nhanh, trực quan và hiệu quả.</p></article>
+        <article class="service"><span>04</span><h3>Sáng tạo</h3><p>Concept, art direction và nội dung giúp thương hiệu có tiếng nói riêng.</p></article>
+        <article class="service"><span>05</span><h3>Sản phẩm</h3><p>Thiết kế trải nghiệm và sản phẩm lấy con người làm trung tâm.</p></article>
+        <article class="service"><span>06</span><h3>Tư vấn</h3><p>Đồng hành cùng đội ngũ để giải quyết những bài toán tăng trưởng quan trọng.</p></article>
+      </div>
+    </div>
+  </section>
+
+  <section id="work">
+    <div class="container">
+      <div class="section-head">
+        <h2>Một vài<br>điều đã làm.</h2>
+        <p>Những dự án tiêu biểu được chọn lọc từ hành trình đồng hành cùng các doanh nghiệp đang phát triển.</p>
+      </div>
+      <div class="work-grid">
+        <div class="work"><span class="label">Maison — Branding</span></div>
+        <div class="work"><span class="label">Forma — Digital Experience</span></div>
+        <div class="work"><span class="label">NOVA — Strategy</span></div>
+        <div class="work"><span class="label">Lumi — Identity</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="quote">
+    <div class="container">
+      <blockquote>“Sự khác biệt thực sự không nằm ở việc làm nhiều hơn, mà ở việc hiểu điều gì đáng để làm.”</blockquote>
+      <cite>AURELIA — OUR PRINCIPLE</cite>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="container contact">
+      <h2>Hãy tạo ra<br>điều đáng nhớ.</h2>
+      <div class="contact-info">
+        <div class="contact-row"><span>Email</span><a href="mailto:hello@aurelia.vn">hello@aurelia.vn</a></div>
+        <div class="contact-row"><span>Điện thoại</span><a href="tel:+842812345678">+84 28 1234 5678</a></div>
+        <div class="contact-row"><span>Địa chỉ</span><span>TP. Hồ Chí Minh, Việt Nam</span></div>
+        <div class="contact-row"><span>Instagram</span><span>@aurelia.studio</span></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="container footer-inner">
+    <span>© 2026 AURELIA. All rights reserved.</span>
+    <span>Made with intention.</span>
+  </div>
+</footer>
+
+<script>
+  const menu = document.querySelector('.menu');
+  const nav = document.querySelector('.navlinks');
+  menu.addEventListener('click', () => {
+    const open = nav.style.display === 'flex';
+    nav.style.display = open ? 'none' : 'flex';
+    if (!open) {
+      nav.style.position = 'absolute';
+      nav.style.top = '68px';
+      nav.style.left = '14px';
+      nav.style.right = '14px';
+      nav.style.padding = '20px';
+      nav.style.background = 'rgba(255,255,255,.96)';
+      nav.style.flexDirection = 'column';
+      nav.style.gap = '18px';
+      nav.style.border = '1px solid #dfddd6';
+      nav.style.borderRadius = '16px';
+    }
+  });
+</script>
+</body>
+</html>
